@@ -13,3 +13,4 @@ To fetch contents,
 ```
 $ python tweet.py <Twitter app credentials - similar to app.json.sample> <keyword1> <keyword2> ...
 ```
+The output of a sample run is included as sampleOut.txt. It can be parsed as JSON while reading or using parse.py.
