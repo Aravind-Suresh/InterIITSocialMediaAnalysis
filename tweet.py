@@ -28,14 +28,20 @@ def word_in_text(word, text):
         return True
     return False
 
-if __name__ == '__main__':
-
+def fetchData(app, keywords):
     l = StdOutListener()
-    with open(sys.argv[1]) as data_file:
-        app = json.load(data_file)
 
     auth = authenticate(app)
     stream = Stream(auth, l)
 
-    keywords = sys.argv[2:]
     stream.filter(track=keywords)
+
+if __name__ == '__main__':
+
+    # Extracting keywords from args
+    keywords = sys.argv[2:]
+    with open(sys.argv[1]) as data_file:
+        app = json.load(data_file)
+
+    # Fetching data from keywords
+    fetchData(app, keywords)
