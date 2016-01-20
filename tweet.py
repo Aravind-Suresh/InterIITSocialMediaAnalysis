@@ -6,10 +6,20 @@ from tweepy import Stream
 import json
 import sys
 
+results = []
+
 class StdOutListener(StreamListener):
+    def __init__(self, limit, api=None):
+        super(StdOutListener, self).__init__()
+        self.num_tweets = limit
+
     def on_data(self, data):
-        print data
-        return True
+        if num_tweets < 10:
+            results.append(data)
+            num_tweets += 1
+            return True
+        else:
+            return False
 
     def on_error(self, status):
         print status
@@ -28,20 +38,11 @@ def word_in_text(word, text):
         return True
     return False
 
-def fetchData(app, keywords):
+def fetchData(app, keywords, limit=10):
     l = StdOutListener()
 
     auth = authenticate(app)
     stream = Stream(auth, l)
 
     stream.filter(track=keywords)
-
-if __name__ == '__main__':
-
-    # Extracting keywords from args
-    keywords = sys.argv[2:]
-    with open(sys.argv[1]) as data_file:
-        app = json.load(data_file)
-
-    # Fetching data from keywords
-    fetchData(app, keywords)
+    return results
