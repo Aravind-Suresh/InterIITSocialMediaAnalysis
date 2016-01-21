@@ -5,11 +5,17 @@ import re
 from tweet import *
 from wordProc import *
 
+# Ensuring correct arguments
+if not len(sys.argv) == 4:
+	print "Usage : %s <Twitter app credentials> <input file> <number of tweets>" % sys.argv[0]
+	sys.exit()
+
 if __name__ == '__main__':
     with open(sys.argv[1]) as data_file:
         app = json.load(data_file)
 
     fin = open(sys.argv[2], 'r')
+    count = eval(sys.argv[3])
     lines = fin.readlines()
 
     # Container to store paras
@@ -23,7 +29,7 @@ if __name__ == '__main__':
             # print temp
             keywords = extractKeywords(temp)
             print keywords
-            obj = te.fetchData(keywords, 1)
+            obj = te.fetchData(keywords, count)
             results.append(obj)
             temp = ''
         else:
