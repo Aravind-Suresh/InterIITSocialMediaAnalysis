@@ -24,7 +24,6 @@ if __name__ == '__main__':
             keywords = extractKeywords(temp)
             print keywords
             obj = te.fetchData(keywords, 1)
-            print "obj", obj
             results.append(obj)
             temp = ''
         else:

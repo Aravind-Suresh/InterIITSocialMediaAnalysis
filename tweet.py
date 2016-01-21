@@ -31,7 +31,6 @@ class TwitterExtract:
         return auth
 
     def __init__(self, app):
-        print app
         self.auth = self.authenticate(app)
 
     def fetchData(self, keywords, limit):
