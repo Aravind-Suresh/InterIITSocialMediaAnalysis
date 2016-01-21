@@ -6,43 +6,36 @@ from tweepy import Stream
 import json
 import sys
 
-results = []
-
 class StdOutListener(StreamListener):
-    def __init__(self, limit, api=None):
-        super(StdOutListener, self).__init__()
-        self.num_tweets = limit
+    def __init__(self, limit):
+        self.num_tweets = 0
+        self.limit = limit
+        self.results = []
 
     def on_data(self, data):
-        if num_tweets < 10:
-            results.append(data)
-            num_tweets += 1
+        if self.num_tweets < 1:
+            print data
+            self.results.append(data)
+            self.num_tweets += 1
             return True
         else:
             return False
 
     def on_error(self, status):
-        print status
+        print "err : " + str(status)
 
-def authenticate(app):
-    auth = OAuthHandler(app['consumer_key'], app['consumer_secret'])
-    auth.set_access_token(app['access_token'], app['access_token_secret'])
+class TwitterExtract:
+    def authenticate(self, app):
+        auth = OAuthHandler(app['consumer_key'], app['consumer_secret'])
+        auth.set_access_token(app['access_token'], app['access_token_secret'])
+        return auth
 
-    return auth
+    def __init__(self, app):
+        print app
+        self.auth = self.authenticate(app)
 
-def word_in_text(word, text):
-    word = word.lower()
-    text = text.lower()
-    match = re.search(word, text)
-    if match:
-        return True
-    return False
-
-def fetchData(app, keywords, limit=10):
-    l = StdOutListener()
-
-    auth = authenticate(app)
-    stream = Stream(auth, l)
-
-    stream.filter(track=keywords)
-    return results
+    def fetchData(self, keywords, limit):
+        l = StdOutListener(limit)
+        stream = Stream(self.auth, l)
+        stream.filter(track=keywords)
+        return l.results

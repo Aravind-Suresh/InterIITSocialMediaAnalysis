@@ -1,12 +1,11 @@
-from tweet import *
-from keyword import *
-
 import sys
 import json
 import re
 
-if __name__ == '__main__':
+from tweet import *
+from wordProc import *
 
+if __name__ == '__main__':
     with open(sys.argv[1]) as data_file:
         app = json.load(data_file)
 
@@ -16,12 +15,19 @@ if __name__ == '__main__':
     # Container to store paras
     results = []
     temp = ''
+    te = TwitterExtract(app)
     for line in lines:
         if line == '\n':
-            temp = re.sub('[^a-zA-Z0-9]', ' ', temp)
+            temp = re.sub('[^a-zA-Z0-9 ]', '', temp)
             temp = re.sub(' +', ' ', temp)
+            # print temp
             keywords = extractKeywords(temp)
-            results.append(fetchData(app, keywords, 1))
+            print keywords
+            obj = te.fetchData(keywords, 1)
+            print "obj", obj
+            results.append(obj)
             temp = ''
         else:
             temp = temp + line
+
+    print results

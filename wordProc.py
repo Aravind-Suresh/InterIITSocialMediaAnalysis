@@ -20,4 +20,5 @@ def extractKeywords(sentence):
         elif (a[i][1] == 'NN' and a[i-1][1] != 'NN'):
             temp = temp + ' ' + a[i][0]
 
-    text = temp.split(' ')
+    keys = temp.split(' ')
+    return keys
