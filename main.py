@@ -23,16 +23,18 @@ if __name__ == '__main__':
     temp = ''
     te = TwitterExtract(app)
     for line in lines:
-        if line == '\n':
-            temp = re.sub('[^a-zA-Z0-9 ]', '', temp)
-            temp = re.sub(' +', ' ', temp)
+		line = line.strip()
+		if line == '':
+			temp = re.sub('[^a-zA-Z0-9 ]', '', temp)
+			temp = re.sub(' +', ' ', temp)
             # print temp
-            keywords = extractKeywords(temp)
-            print keywords
-            obj = te.fetchData(keywords, count)
-            results.append(obj)
-            temp = ''
-        else:
-            temp = temp + line
+			keywords = extractKeywords(temp)
+			# print keywords
+			if not keywords[0] == '':
+				obj = te.fetchData(keywords, count)
+				results.append(obj)
+			temp = ''
+		else:
+			temp = temp + line
 
     print results
