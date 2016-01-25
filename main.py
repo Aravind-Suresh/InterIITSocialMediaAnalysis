@@ -22,6 +22,8 @@ if __name__ == '__main__':
     results = []
     temp = ''
     te = TwitterExtract(app)
+    if len(lines) == 1:
+		lines.append('')
     for line in lines:
 		line = line.strip()
 		if line == '':
