@@ -69,5 +69,5 @@ class TwitterExtract:
         l = StdOutListener(limit)
         stream = Stream(self.auth, l)
         stream.filter(track=keywords)
-        # return l.results
-        return map(lambda x: self.cleanRaw(json.loads(x)), l.results)
+        return l.results
+        # return map(lambda x: self.cleanRaw(json.loads(x)), l.results)
