@@ -18,7 +18,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from nltk.stem.porter import PorterStemmer
 
 import nltk
-from newspaper import Article
+#from newspaper import Article
 from nltk.stem.snowball import SnowballStemmer
 
 stemmer = PorterStemmer()
@@ -105,7 +105,7 @@ def getGoogleContent(query):
     return contents
 
 #headF = True, textF = True
-file = open(sys.argv[1],'r')
+file = open(sys.argv[2],'r')
 lines = file.read()
 
 hd = lines
@@ -121,15 +121,26 @@ for i in range(0, paraCount):
     ll = headKeywords(paras[i][0] + paras[i][1])
     if len(ll) < MIN_KEYWORD_COUNT:
         u = getGoogleContent(paras[i])
-        for j in range(0, 4):
-            article = Article(u[i])
-            article.download()
-            article.parse()
-            article.nlp
-
-        k = article.keywords
-        ll = k
+        # for j in range(0, 4):
+        #     article = Article(u[i])
+        #     article.download()
+        #     article.parse()
+        #     article.nlp
+        #
+        # k = article.keywords
+        # ll = k
     lKeys.append(ll)
 
+with open(sys.argv[1]) as data_file:
+    app = json.load(data_file)
+count = eval(sys.argv[3])
+te = TwitterExtract(app)
 
-#headlines = removeQuotes(headlines)
+results = []
+
+for keys in lKeys:
+    if not len(keys) == 0:
+        obj = te.fetchData(keys, count)
+        results.append(obj)
+
+print results
