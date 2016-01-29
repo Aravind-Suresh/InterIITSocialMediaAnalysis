@@ -14,7 +14,6 @@ from textblob import TextBlob as tb
 
 import sys
 
-from sklearn.feature_extraction.text import TfidfVectorizer
 from nltk.stem.porter import PorterStemmer
 
 import nltk
@@ -116,9 +115,9 @@ paras = splitParagraph(lines)
 paraCount = len(paras)
 
 lKeys = []
-MIN_KEYWORD_COUNT = 4
+MIN_KEYWORD_COUNT = 0
 for i in range(0, paraCount):
-    ll = headKeywords(paras[i][0] + paras[i][1])
+    ll = headKeywords(paras[i]); ll=ll[0]+ll[1]
     if len(ll) < MIN_KEYWORD_COUNT:
         u = getGoogleContent(paras[i])
         # for j in range(0, 4):
