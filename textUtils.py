@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """
 Created on Mon Jan 25 21:11:02 2016
-
 @author: rsk
 """
 
@@ -13,6 +12,11 @@ import math
 from textblob import TextBlob as tb
 
 import sys
+import json
+import re
+
+from tweet import *
+from wordProc import *
 
 from nltk.stem.porter import PorterStemmer
 
@@ -135,12 +139,19 @@ with open(sys.argv[1]) as data_file:
 count = eval(sys.argv[3])
 te = TwitterExtract(app)
 
-print lKeys
-# results = []
-#
-# for keys in lKeys:
-#     if not len(keys) == 0:
-#         obj = te.fetchData(keys, count)
-#         results.append(obj)
-#
-# print results
+results = []
+
+for keys in lKeys:
+    if not len(keys) == 0:
+        obj = te.fetchData(keys, count)
+        results.append(obj)
+	#print json.loads(obj[0])
+
+with open(sys.argv[4] + "/out.json", 'w') as outfile:
+	json.dump(results, outfile)
+#fout.write(s)
+#fout.close()
+
+#print lKeys
+#for keys in lKeys:
+#	print ",".join(keys)
