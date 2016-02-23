@@ -13,6 +13,11 @@ import math
 from textblob import TextBlob as tb
 
 import sys
+import json
+import re
+
+from tweet import *
+from wordProc import *
 
 from nltk.stem.porter import PorterStemmer
 
@@ -141,5 +146,13 @@ for keys in lKeys:
     if not len(keys) == 0:
         obj = te.fetchData(keys, count)
         results.append(obj)
+	#print json.loads(obj[0])
 
-print results
+with open(sys.argv[4] + "/out.json", 'w') as outfile:
+	json.dump(results, outfile)
+#fout.write(s)
+#fout.close()
+
+#print lKeys
+#for keys in lKeys:
+#	print ",".join(keys)

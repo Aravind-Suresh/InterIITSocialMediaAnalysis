@@ -34,6 +34,8 @@ if __name__ == '__main__':
 			# print keywords
 			if not keywords[0] == '':
 				obj = te.fetchData(keywords, count)
+				obj = str(obj)
+				obj=re.sub(r'[^\x00-\x7F]+','', obj)
 				results.append(obj)
 			temp = ''
 		else:
