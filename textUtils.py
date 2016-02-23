@@ -135,11 +135,12 @@ with open(sys.argv[1]) as data_file:
 count = eval(sys.argv[3])
 te = TwitterExtract(app)
 
-results = []
-
-for keys in lKeys:
-    if not len(keys) == 0:
-        obj = te.fetchData(keys, count)
-        results.append(obj)
-
-print results
+print lKeys
+# results = []
+#
+# for keys in lKeys:
+#     if not len(keys) == 0:
+#         obj = te.fetchData(keys, count)
+#         results.append(obj)
+#
+# print results
